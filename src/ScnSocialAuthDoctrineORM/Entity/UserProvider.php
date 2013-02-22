@@ -37,7 +37,7 @@ class UserProvider implements UserProviderInterface
     }
     
     public function getUserId() { }
-    public function setUserId() { }
+    public function setUserId($userId) { }
 
     /**
      * @return the $providerId
