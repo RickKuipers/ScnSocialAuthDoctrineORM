@@ -8,7 +8,7 @@ use ScnSocialAuth\Entity\UserProviderInterface;
 class UserProvider implements UserProviderInterface
 {
     /**
-     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="user_provider")
+     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="userProvider")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      */
     protected $user;
