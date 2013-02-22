@@ -55,7 +55,7 @@ class UserProvider extends AbstractDbMapper implements UserProviderInterface
         $userProvider = $this->findUserByProviderId($hybridUserProfile->identifier, $provider);
 
         if (false != $userProvider) {
-            if ($user->getId() == $userProvider->getUserId()) {
+            if ($user->getId() == $userProvider->getUser()->getId()) {
                 // already linked
                 return;
             }
@@ -63,7 +63,7 @@ class UserProvider extends AbstractDbMapper implements UserProviderInterface
         }
 
         $userProvider = clone($this->getEntityPrototype());
-        $userProvider->setUserId($user->getId())
+        $userProvider->setUser($user)
                      ->setProviderId($hybridUserProfile->identifier)
                      ->setProvider($provider);
         $this->insert($userProvider);
@@ -111,7 +111,7 @@ class UserProvider extends AbstractDbMapper implements UserProviderInterface
     public function findProviderByUser(UserInterface $user, $provider)
     {
         $er = $this->em->getRepository($this->options->getUserProviderEntityClass());
-        $entity = $er->findOneBy(array('userId' => $user->getId(), 'provider' => $provider));
+        $entity = $er->findOneBy(array('user' => $user, 'provider' => $provider));
         $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
         return $entity;
     }
@@ -123,7 +123,7 @@ class UserProvider extends AbstractDbMapper implements UserProviderInterface
     public function findProvidersByUser(UserInterface $user)
     {
         $er = $this->em->getRepository($this->options->getUserProviderEntityClass());
-        $entities = $er->findBy(array('userId' => $user->getId()));
+        $entities = $er->findBy(array('user' => $user));
 
         $return = array();
         foreach ($entities as $entity) {
