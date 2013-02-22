@@ -35,6 +35,9 @@ class UserProvider implements UserProviderInterface
 
         return $this;
     }
+    
+    public function getUserId() { }
+    public function setUserId() { }
 
     /**
      * @return the $providerId
