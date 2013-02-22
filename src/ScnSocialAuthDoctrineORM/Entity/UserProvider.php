@@ -7,30 +7,31 @@ use ScnSocialAuth\Entity\UserProviderInterface;
 /** @ORM\Entity @ORM\Table(name="user_provider") */
 class UserProvider implements UserProviderInterface
 {
-    /** @ORM\Id @ORM\Column(type="integer",name="user_id") */
-    protected $userId;
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="user_provider")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     */
+    protected $user;
 
-    /** @ORM\Id @ORM\Column(type="integer",name="provider_id") */
+    /** @ORM\Id @ORM\Column(type="integer", name="provider_id") */
     protected $providerId;
 
     /** @ORM\Column(type="string") */
     protected $provider;
 
     /**
-     * @return the $userId
+     * @return User
      */
-    public function getUserId()
-    {
-        return $this->userId;
+    public function getUser() {
+        return $this->user;
     }
 
     /**
-     * @param  integer      $userId
+     * @param User $user
      * @return UserProvider
      */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
+    public function setUser($user) {
+        $this->user = $user;
 
         return $this;
     }
