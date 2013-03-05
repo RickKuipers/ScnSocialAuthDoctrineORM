@@ -13,7 +13,7 @@ class UserProvider implements UserProviderInterface
      */
     protected $user;
 
-    /** @ORM\Id @ORM\Column(type="integer", name="provider_id") */
+    /** @ORM\Id @ORM\Column(type="bigint", name="provider_id", options={"unsigned"=true}) */
     protected $providerId;
 
     /** @ORM\Column(type="string") */
